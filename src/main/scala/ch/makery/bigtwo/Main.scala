@@ -24,12 +24,12 @@ object Main extends JFXApp{
 
   //function for switching to game scene
   def showGameScene(): Unit = {
-    val resource = getClass.getResourceAsStream("view/GamePage.fxml")
-    val loader = new FXMLLoader(null, NoDependencyResolver)
-    loader.load(resource);
+    val resource = getClass.getResource("view/GamePage.fxml")
+    val loader = new FXMLLoader(resource, NoDependencyResolver)
+    loader.load()
     val roots2 = loader.getRoot[jfxs.Parent]
     val control = loader.getController[GameController#Controller]
-
+    control.startGame()
 
     // Create a new Scene object with the gameRoot as the root node
     val gameScene = new Scene(roots2)
@@ -45,7 +45,7 @@ object Main extends JFXApp{
 
     val resource = getClass.getResource("view/GameMenuPage.fxml")
     val loader = new FXMLLoader(resource, NoDependencyResolver)
-    loader.load();
+    loader.load()
     val roots = loader.getRoot[jfxs.Parent]
     val control2 = loader.getController[MainMenuController#Controller]
     control2.initialize()
