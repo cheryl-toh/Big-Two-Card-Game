@@ -16,7 +16,7 @@ class Card (rankS: Int, suitS: Int, image: Image){
     suit
   }
 
-  def getImage(): Unit = {
+  def getImage(): Image = {
     cardImage
   }
 }

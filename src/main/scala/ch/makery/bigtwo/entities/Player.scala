@@ -21,8 +21,16 @@ class Player (playerIDS: Int){
     hand.toList
   }
 
+  def getHand(): Unit = {
+    hand
+  }
+
   def addSelectedCard(selectedCard: Card): Unit = {
     selectCard += selectedCard
+  }
+
+  def deselectCard(card: Card): Unit = {
+    selectCard -= card
   }
 
   def getSelectCard(): List[Card] = {

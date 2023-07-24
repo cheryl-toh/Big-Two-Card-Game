@@ -28,6 +28,10 @@ class Game (players: List[Player], deck: Deck){
     players(currentPlayerIndex)
   }
 
+  def getNextPlayer():Player = {
+    players(currentPlayerIndex + 1)
+  }
+
   def startNextTurn(): Unit = {
     val currentPlayer = players(currentPlayerIndex)
     currentPlayer.setTurn(true)

@@ -1,5 +1,6 @@
 package ch.makery.bigtwo.util
 
+import ch.makery.bigtwo.controllers.GameController
 import ch.makery.bigtwo.entities.Game
 import scalafx.animation.AnimationTimer
 
@@ -18,8 +19,8 @@ object GameLogic {
 
   def handlePlayerTurns(): Unit = {
     val currentPlayer = game.getCurrentPlayer()
-
     if(!currentPlayer.getTurn()){
+
       game.moveToNextTurn()
     }
   }
@@ -43,3 +44,4 @@ object GameLogic {
   }
 
 }
+

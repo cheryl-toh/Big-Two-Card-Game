@@ -13,33 +13,46 @@
             <Image url="@../../../../Images/gamebg.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="leftPlayer" fitHeight="500.0" fitWidth="500.0" layoutX="6.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="middlePlayer" fitHeight="500.0" fitWidth="500.0" layoutX="718.0" layoutY="252.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="rightPlayer" fitHeight="500.0" fitWidth="500.0" layoutX="1484.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="1920.0" fitWidth="1500.0" layoutX="226.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="leftPlayer" fitHeight="500.0" fitWidth="500.0" layoutX="106.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="middlePlayer" fitHeight="500.0" fitWidth="500.0" layoutX="740.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="rightPlayer" fitHeight="500.0" fitWidth="500.0" layoutX="1340.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fitHeight="1920.0" fitWidth="1500.0" layoutX="234.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../../Images/table.png" />
          </image>
       </ImageView>
-      <Button layoutX="85.0" layoutY="55.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="54.0" prefWidth="160.0" text="Back">
+      <Button layoutX="93.0" layoutY="-72.0" mnemonicParsing="false" onAction="#handleBack" prefHeight="54.0" prefWidth="160.0" text="Back">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="590.0" layoutY="694.0" mnemonicParsing="false" onAction="#handlePassButton" prefHeight="89.0" prefWidth="182.0" text="Pass">
+      <Button layoutX="565.0" layoutY="504.0" mnemonicParsing="false" onAction="#handlePassButton" prefHeight="89.0" prefWidth="182.0" text="Pass">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="1134.0" layoutY="694.0" mnemonicParsing="false" onAction="#handleDealButton" prefHeight="89.0" prefWidth="182.0" text="Deal">
+      <Button layoutX="1135.0" layoutY="497.0" mnemonicParsing="false" onAction="#handleDealButton" prefHeight="89.0" prefWidth="182.0" text="Deal">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
-      <Button layoutX="869.0" layoutY="694.0" mnemonicParsing="false" onAction="#handleEndGame" prefHeight="89.0" prefWidth="182.0" text="End Game">
+      <Button layoutX="871.0" layoutY="497.0" mnemonicParsing="false" onAction="#handleEndGame" prefHeight="89.0" prefWidth="182.0" text="End Game">
          <font>
             <Font size="24.0" />
          </font>
       </Button>
+      <ImageView fx:id="card1" fitHeight="290.4" fitWidth="200.0" layoutX="280.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card2" fitHeight="290.4" fitWidth="200.0" layoutX="380.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card3" fitHeight="290.4" fitWidth="200.0" layoutX="480.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card4" fitHeight="290.4" fitWidth="200.0" layoutX="580.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card5" fitHeight="290.4" fitWidth="200.0" layoutX="680.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card6" fitHeight="290.4" fitWidth="200.0" layoutX="780.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card7" fitHeight="290.4" fitWidth="200.0" layoutX="880.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card8" fitHeight="290.4" fitWidth="200.0" layoutX="980.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card9" fitHeight="290.4" fitWidth="200.0" layoutX="1080.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card10" fitHeight="290.4" fitWidth="200.0" layoutX="1180.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card11" fitHeight="290.4" fitWidth="200.0" layoutX="1280.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card12" fitHeight="290.4" fitWidth="200.0" layoutX="1380.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card13" fitHeight="290.4" fitWidth="200.0" layoutX="1480.0" layoutY="650.0" onMouseClicked="#handleCardPress" onMouseDragged="#handleMouseDrag" onMouseReleased="#handleMouseRelease" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
