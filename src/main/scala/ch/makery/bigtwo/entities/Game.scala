@@ -1,9 +1,13 @@
 package ch.makery.bigtwo.entities
 
-class Game (players: List[Player], deck: Deck){
+import scala.collection.mutable.ListBuffer
 
+class Game (playersS: List[Player], deck: Deck){
+
+  var players =  playersS
   var currentPlayerIndex: Int = 0
   var gamefinished:Boolean = false
+  var previousDealtCards: List[Card] = List.empty[Card]
 
   def startGame(): Unit = {
     deck.initializeDeck()
@@ -29,7 +33,8 @@ class Game (players: List[Player], deck: Deck){
   }
 
   def getNextPlayer():Player = {
-    players(currentPlayerIndex + 1)
+    val nextPlayerIndex = (currentPlayerIndex + 1) % players.length
+    players(nextPlayerIndex)
   }
 
   def startNextTurn(): Unit = {

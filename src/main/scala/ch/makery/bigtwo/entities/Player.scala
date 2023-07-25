@@ -5,7 +5,7 @@ import scala.collection.mutable.ListBuffer
 class Player (playerIDS: Int){
 
   private val playerID = playerIDS
-  private val hand: ListBuffer[Card] = ListBuffer.empty[Card]
+  val hand: ListBuffer[Card] = ListBuffer.empty[Card]
   private var selectCard: ListBuffer[Card] = ListBuffer.empty[Card]
   private var isTurn: Boolean = false
 
@@ -18,11 +18,15 @@ class Player (playerIDS: Int){
   }
 
   def showHand(): List[Card] = {
-    hand.toList
-  }
-
-  def getHand(): Unit = {
-    hand
+    hand.toList.sortWith((card1, card2) => {
+      if (card1.getRank() < card2.getRank()) {
+        true
+      } else if (card1.getRank() == card2.getRank()) {
+        card1.getSuit() < card2.getSuit()
+      } else {
+        false
+      }
+    })
   }
 
   def addSelectedCard(selectedCard: Card): Unit = {

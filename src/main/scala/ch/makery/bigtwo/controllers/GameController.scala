@@ -4,14 +4,15 @@ import ch.makery.bigtwo.Main
 import ch.makery.bigtwo.entities.{Card, Deck, Game, Player}
 import ch.makery.bigtwo.util.{GameLogic, PlaySound}
 import javafx.fxml.FXML
-import scalafx.animation.{AnimationTimer, KeyFrame, KeyValue, Timeline}
+import scalafx.animation.{AnimationTimer, KeyFrame, Timeline}
 import scalafx.scene.image.{Image, ImageView}
 import scalafxml.core.macros.sfxml
 import scalafx.event.ActionEvent
-import scalafx.scene.input.{MouseButton, MouseEvent}
+import scalafx.scene.control.Alert
+import scalafx.scene.control.Alert.AlertType
+import scalafx.scene.input.MouseEvent
 import scalafx.util.Duration
-import scalafx.Includes._
-import javafx.event.EventHandler
+
 
 @sfxml
 class GameController (@FXML var leftPlayer: ImageView,
@@ -44,21 +45,19 @@ class GameController (@FXML var leftPlayer: ImageView,
   card11.userData = "card11"
   card12.userData = "card12"
   card13.userData = "card13"
-
+  // Maximum number of cards that can be displayed on the screen
+  private val maxDisplayedCards = 13
   //initialize new deck and game
   private val deck: Deck = new Deck()
-  private var game: Game = new Game(List(
+  private val game: Game = new Game(List(
     new Player(1),
     new Player(2),
     new Player(3),
     new Player(4)
   ), deck)
-  private var dragStartX: Double = 0
-  private var dragStartY: Double = 0
-  private var isDragging: Boolean = false
 
   // initialize animation images for each player
-  private var playerAnimations: Map[Int, List[Image]] = Map(
+  private val playerAnimations: Map[Int, List[Image]] = Map(
     1 -> List(
       new Image(getClass.getResourceAsStream("/Images/player 1/1.png")),
       new Image(getClass.getResourceAsStream("/Images/player 1/2.png")),
@@ -109,6 +108,7 @@ class GameController (@FXML var leftPlayer: ImageView,
     startPlayerAnimations()
 
     distributeCardAnimation()
+
   }
 
   // Method to start player animations
@@ -143,10 +143,13 @@ class GameController (@FXML var leftPlayer: ImageView,
     animationTimer.start()
   }
 
-  def showCardAtIndex(cardImageViews: List[ImageView], index: Int, card: Card): Unit = {
-    if (index < cardImageViews.length) {
-      cardImageViews(index).image = card.getImage()
-      cardImageViews(index).visible = true
+  def showCardAtIndex(cardImageView: ImageView, card: Card, index: Int): Unit = {
+    if (index < maxDisplayedCards && card != null) {
+      cardImageView.image = card.getImage()
+      cardImageView.visible = true
+    } else {
+      cardImageView.image = null
+      cardImageView.visible = false
     }
   }
 
@@ -169,7 +172,7 @@ class GameController (@FXML var leftPlayer: ImageView,
       val delay: Duration = durationPerCard * (index + 1)
 
       // Create the KeyFrame with the EventHandler and time delay
-      val keyFrame = KeyFrame(delay, onFinished = _ => showCardAtIndex(cardImageViews, index, card))
+      val keyFrame = KeyFrame(delay, onFinished = _ => showCardAtIndex(cardImageViews(index), card, index))
 
       // Add the KeyFrame to the Timeline
       timeline.keyFrames.add(keyFrame)
@@ -186,14 +189,21 @@ class GameController (@FXML var leftPlayer: ImageView,
     println("Player updated to: " + currentPlayer.getPlayerID())
     val currentPlayerHand = currentPlayer.showHand()
 
-    val cardImageViews = List(card1,card2,card3,card4,card5,card6,card7,card8,card9,card10,card11,card12,card13)
+    // List of all card ImageView nodes
+    val cardImageViews = List(card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13)
+    // Clear the images in all card ImageView nodes first
+    cardImageViews.foreach(_.image = null)
+    // Hide all card ImageView nodes first
+    cardImageViews.foreach(_.visible = false)
 
+    // Calculate the starting index to center the cards in the middle of the ImageView nodes
+    val startIndex = (cardImageViews.length - currentPlayerHand.length) / 2
+
+    // Show the cards in the middle of the ImageView nodes
     for ((card, index) <- currentPlayerHand.zipWithIndex) {
-
-      if (index < cardImageViews.length){
-        cardImageViews(index).image = card.getImage()
-        cardImageViews(index).visible = true // Show the card ImageView node
-      }
+      // Get the corresponding ImageView for the current card
+      val cardImageView = cardImageViews(index)
+      showCardAtIndex(cardImageView, card, index)
     }
   }
 
@@ -228,31 +238,67 @@ class GameController (@FXML var leftPlayer: ImageView,
     }
   }
 
-  def handleMouseDrag(action: MouseEvent): Unit = {
-
-  }
-
-  def handleMouseRelease(action: MouseEvent): Unit = {
-
-  }
-
   def handlePassButton(action: ActionEvent): Unit = {
     val currentPlayer = game.getCurrentPlayer()
+    // Check if all other players have passed their turn
+    val otherPlayersPassed = game.players.filterNot(_ == currentPlayer).forall(_.getTurn() == false)
+
+    if (otherPlayersPassed) {
+      // Reset the previousDealtCards list to be empty
+      game.previousDealtCards = List.empty[Card]
+    }
     currentPlayer.clearSelectedCard()
     currentPlayer.setTurn(false)
 
     resetCardTranslations()
     updateShownHand()
-
   }
 
   def handleDealButton(action: ActionEvent): Unit = {
     val currentPlayer = game.getCurrentPlayer()
-    currentPlayer.clearSelectedCard()
-    currentPlayer.setTurn(false)
+    val selectedCards = currentPlayer.getSelectCard()
+    val validSelect = GameLogic.checkCombo(selectedCards)
 
-    resetCardTranslations()
-    updateShownHand()
+    if (validSelect == "invalid") {
+      // Show an alert indicating invalid combo
+      val alert = new Alert(AlertType.Warning)
+      alert.title = "Invalid Combo"
+      alert.headerText = "Invalid combo selected."
+      alert.contentText = "Please select a valid combo."
+      alert.showAndWait()
+    } else {
+      // Check if the selected cards can be dealt
+      val validDeal = GameLogic.checkDealable(selectedCards)
+      if (validDeal) {
+        // Save the selected cards as previous dealt cards
+        game.previousDealtCards = selectedCards
+        currentPlayer.hand --= selectedCards
+        println("selectedcards: ")
+        selectedCards.foreach(x => println(x.getRank() + "_" + x.getSuit()))
+        // Clear the selected cards from the current player's hand
+        currentPlayer.clearSelectedCard()
+
+        if(currentPlayer.showHand().isEmpty){
+          game.gamefinished = true
+          Main.showMainMenuScene()
+        }else{
+          // Set the current player's turn to false and move to the next turn
+          currentPlayer.setTurn(false)
+
+          // Reset card translations and update shown hand for the next player
+          resetCardTranslations()
+          updateShownHand()
+        }
+
+      } else {
+        // Show an alert indicating invalid deal
+        val alert = new Alert(AlertType.Warning)
+        alert.title = "Invalid Deal"
+        alert.headerText = "Invalid deal: The selected cards cannot be dealt."
+        alert.contentText = "Please select a valid deal."
+        alert.showAndWait()
+      }
+    }
   }
 
   def handleEndGame(action: ActionEvent): Unit = {
