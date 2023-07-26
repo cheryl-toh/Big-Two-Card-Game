@@ -1,23 +1,37 @@
 package ch.makery.bigtwo.controllers
 
 import ch.makery.bigtwo.Main
+import ch.makery.bigtwo.Main.getClass
 import ch.makery.bigtwo.entities.{Card, Deck, Game, Player}
 import ch.makery.bigtwo.util.{GameLogic, PlaySound}
 import javafx.fxml.FXML
 import scalafx.animation.{AnimationTimer, KeyFrame, Timeline}
+import scalafx.application.Platform
 import scalafx.scene.image.{Image, ImageView}
 import scalafxml.core.macros.sfxml
 import scalafx.event.ActionEvent
-import scalafx.scene.control.Alert
+import scalafx.scene.control.{Alert, Label}
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.input.MouseEvent
 import scalafx.util.Duration
-
+import scalafxml.core.{FXMLLoader, NoDependencyResolver}
 
 @sfxml
 class GameController (@FXML var leftPlayer: ImageView,
                       @FXML var rightPlayer: ImageView,
                       @FXML var middlePlayer: ImageView,
+                      @FXML var currentPlayer: ImageView,
+                      @FXML var leftPlayerID: Label,
+                      @FXML var middlePlayerID: Label,
+                      @FXML var rightPlayerID: Label,
+                      @FXML var currentPlayerID: Label,
+                      @FXML var leftPlayerLength: Label,
+                      @FXML var middlePlayerLength: Label,
+                      @FXML var rightPlayerLength: Label,
+                      @FXML var leftPlayerCrown: ImageView,
+                      @FXML var rightPlayerCrown: ImageView,
+                      @FXML var middlePlayerCrown: ImageView,
+                      @FXML var currentPlayerCrown: ImageView,
                       @FXML var card1: ImageView,
                       @FXML var card2: ImageView,
                       @FXML var card3: ImageView,
@@ -108,7 +122,7 @@ class GameController (@FXML var leftPlayer: ImageView,
     startPlayerAnimations()
 
     distributeCardAnimation()
-
+    updateCrowns()
   }
 
   // Method to start player animations
@@ -123,13 +137,22 @@ class GameController (@FXML var leftPlayer: ImageView,
       if(currentTime - lastFrameTime >= 400000000){
         lastFrameTime = currentTime
 
-        val currentPlayer = game.getCurrentPlayer()
-        val currentPlayerID = currentPlayer.getPlayerID()
+        val turnPlayer = game.getCurrentPlayer()
+        val turnPlayerID = turnPlayer.getPlayerID()
 
         // Update the ImageView nodes with the corresponding animation frame
-        leftPlayer.image = playerAnimations((currentPlayerID) % 4 + 1)(currentFrameIndices((currentPlayerID) % 4 + 1))
-        middlePlayer.image = playerAnimations((currentPlayerID + 1) % 4 + 1)(currentFrameIndices((currentPlayerID + 1) % 4 + 1))
-        rightPlayer.image = playerAnimations((currentPlayerID + 2) % 4 + 1)(currentFrameIndices((currentPlayerID + 2) % 4 + 1))
+        currentPlayer.image = playerAnimations(turnPlayerID)(currentFrameIndices(turnPlayerID))
+        leftPlayer.image = playerAnimations((turnPlayerID) % 4 + 1)(currentFrameIndices((turnPlayerID) % 4 + 1))
+        middlePlayer.image = playerAnimations((turnPlayerID + 1) % 4 + 1)(currentFrameIndices((turnPlayerID + 1) % 4 + 1))
+        rightPlayer.image = playerAnimations((turnPlayerID + 2) % 4 + 1)(currentFrameIndices((turnPlayerID + 2) % 4 + 1))
+
+        // Update the player ID labels
+        currentPlayerID.text = s"Player $turnPlayerID"
+        leftPlayerID.text = s"Player ${((turnPlayerID) % 4) + 1}"
+        middlePlayerID.text = s"Player ${((turnPlayerID + 1) % 4) + 1}"
+        rightPlayerID.text = s"Player ${((turnPlayerID + 2) % 4) + 1}"
+        updateCrowns()
+        updateHandLength()
 
         // Increment the frame index for each player
         currentFrameIndices = currentFrameIndices.map { case (playerID, frameIndex) =>
@@ -138,11 +161,41 @@ class GameController (@FXML var leftPlayer: ImageView,
         }
       }
     }
-
     // Start the animation timer
     animationTimer.start()
   }
 
+  def updateCrowns(): Unit = {
+    val currentPlayer = game.getCurrentPlayer()
+    showCrownForPlayer(currentPlayer, currentPlayerCrown)
+    showCrownForPlayer(getNextPlayer(currentPlayer), leftPlayerCrown)
+    showCrownForPlayer(getNextPlayer(getNextPlayer(currentPlayer)), middlePlayerCrown)
+    showCrownForPlayer(getNextPlayer(getNextPlayer(getNextPlayer(currentPlayer))), rightPlayerCrown)
+  }
+
+  def updateHandLength(): Unit = {
+    val currentPlayer = game.getCurrentPlayer()
+    showHandForPlayers(getNextPlayer(currentPlayer), leftPlayerLength)
+    showHandForPlayers(getNextPlayer(getNextPlayer(currentPlayer)), middlePlayerLength)
+    showHandForPlayers(getNextPlayer(getNextPlayer(getNextPlayer(currentPlayer))), rightPlayerLength)
+  }
+
+  def showHandForPlayers(player: Player, handLabel: Label): Unit = {
+    handLabel.text = player.showHand().length.toString
+  }
+
+  def showCrownForPlayer(player: Player, crownImageView: ImageView): Unit = {
+    crownImageView.visible = player.getPlayerID() == game.kingPlayerID
+
+    if (crownImageView.visible.value) {
+      crownImageView.image = new Image(getClass.getResourceAsStream("/Images/crown.png"))
+    }
+  }
+
+  def getNextPlayer(player: Player): Player = {
+    val nextPlayerIndex = (game.players.indexOf(player) + 1) % game.players.length
+    game.players(nextPlayerIndex)
+  }
   def showCardAtIndex(cardImageView: ImageView, card: Card, index: Int): Unit = {
     if (index < maxDisplayedCards && card != null) {
       cardImageView.image = card.getImage()
@@ -240,18 +293,33 @@ class GameController (@FXML var leftPlayer: ImageView,
 
   def handlePassButton(action: ActionEvent): Unit = {
     val currentPlayer = game.getCurrentPlayer()
-    // Check if all other players have passed their turn
-    val otherPlayersPassed = game.players.filterNot(_ == currentPlayer).forall(_.getTurn() == false)
+    val nextPlayer = getNextPlayer(currentPlayer)
 
-    if (otherPlayersPassed) {
+    // Mark the current player as dealt (made a move) in this round
+    game.markPlayerAsPassed(currentPlayer)
+
+    // Check if all other players except the next player have dealt and passed in this round
+    val otherPlayersDealtAndPassed = game.players.filterNot(p => p == nextPlayer).forall(p => game.playersPassed.contains(p))
+
+    println(otherPlayersDealtAndPassed)
+    if (otherPlayersDealtAndPassed) {
       // Reset the previousDealtCards list to be empty
       game.previousDealtCards = List.empty[Card]
+
+      // Find the player who has not dealt and passed in this round and set them as the king
+      val nonDealtAndPassedPlayer = game.players.find(p => !p.getHasPassed()).get
+      game.setKingPlayerID(nonDealtAndPassedPlayer.getPlayerID())
+
+      game.resetPlayersPassedStatus()
     }
+
     currentPlayer.clearSelectedCard()
     currentPlayer.setTurn(false)
 
     resetCardTranslations()
     updateShownHand()
+    updateCrowns()
+    updateHandLength()
   }
 
   def handleDealButton(action: ActionEvent): Unit = {
@@ -280,14 +348,18 @@ class GameController (@FXML var leftPlayer: ImageView,
 
         if(currentPlayer.showHand().isEmpty){
           game.gamefinished = true
-          Main.showMainMenuScene()
+          Platform.runLater(() => Main.showLeaderBoardScene(game.players))
         }else{
+
+          game.resetPlayersPassedStatus()
           // Set the current player's turn to false and move to the next turn
           currentPlayer.setTurn(false)
 
           // Reset card translations and update shown hand for the next player
           resetCardTranslations()
           updateShownHand()
+          updateHandLength()
+
         }
 
       } else {
@@ -299,15 +371,6 @@ class GameController (@FXML var leftPlayer: ImageView,
         alert.showAndWait()
       }
     }
-  }
-
-  def handleEndGame(action: ActionEvent): Unit = {
-    game.gamefinished = true
-    Main.showMainMenuScene()
-  }
-
-  def handleBack(action: ActionEvent): Unit = {
-    Main.showMainMenuScene()
   }
 
 }

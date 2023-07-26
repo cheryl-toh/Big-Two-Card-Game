@@ -8,6 +8,7 @@ class Player (playerIDS: Int){
   val hand: ListBuffer[Card] = ListBuffer.empty[Card]
   private var selectCard: ListBuffer[Card] = ListBuffer.empty[Card]
   private var isTurn: Boolean = false
+  private var hasPassed: Boolean = false
 
   def getPlayerID(): Int = {
     playerID
@@ -51,5 +52,13 @@ class Player (playerIDS: Int){
 
   def getTurn(): Boolean = {
     isTurn
+  }
+
+  def getHasPassed(): Boolean = {
+    hasPassed
+  }
+
+  def setHasPassed(passed: Boolean): Unit = {
+    hasPassed = passed
   }
 }

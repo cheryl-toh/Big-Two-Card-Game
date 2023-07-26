@@ -1,6 +1,7 @@
 package ch.makery.bigtwo
 
-import ch.makery.bigtwo.controllers.{GameController, MainMenuController}
+import ch.makery.bigtwo.controllers.{GameController, LeaderBoardController, MainMenuController}
+import ch.makery.bigtwo.entities.Player
 import ch.makery.bigtwo.util.PlaySound
 import scalafx.application.JFXApp
 import scalafx.application.JFXApp.PrimaryStage
@@ -29,6 +30,7 @@ object Main extends JFXApp{
     loader.load()
     val roots2 = loader.getRoot[jfxs.Parent]
     val control = loader.getController[GameController#Controller]
+
     control.startGame()
 
     // Create a new Scene object with the gameRoot as the root node
@@ -59,6 +61,30 @@ object Main extends JFXApp{
 
     val file = getClass.getResource("/sounds/MenuMusic.wav")
     PlaySound.playBackgroundMusic(file)
+  }
+
+  //function for switching to main menu scene
+  def showLeaderBoardScene(players: List[Player]): Unit = {
+
+    val resource = getClass.getResource("view/LeaderboardPage.fxml")
+    val loader = new FXMLLoader(resource, NoDependencyResolver)
+    loader.load()
+    val roots = loader.getRoot[jfxs.Parent]
+    val control2 = loader.getController[LeaderBoardController#Controller]
+    control2.updateLeaderboard(players)
+
+
+    // Create a new Scene object with the gameRoot as the root node
+    val gameScene = new Scene(roots)
+
+
+    // Set the game scene to the primary stage to display it
+    stage.setScene(gameScene)
+    val file = getClass.getResource("/sounds/Win.wav")
+    PlaySound.playSoundEffect(file)
+
+    val file2 = getClass.getResource("/sounds/MenuMusic.wav")
+    PlaySound.playBackgroundMusic(file2)
   }
 
 

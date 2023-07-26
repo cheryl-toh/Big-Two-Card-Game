@@ -8,11 +8,13 @@ class Game (playersS: List[Player], deck: Deck){
   var currentPlayerIndex: Int = 0
   var gamefinished:Boolean = false
   var previousDealtCards: List[Card] = List.empty[Card]
+  var kingPlayerID: Int = 1
+  var playersPassed: Set[Player] = Set.empty
 
   def startGame(): Unit = {
     deck.initializeDeck()
     deck.shuffle()
-
+    setKingPlayerID(1)
     distributeCards()
     startNextTurn()
   }
@@ -53,6 +55,21 @@ class Game (playersS: List[Player], deck: Deck){
 
     // Start the next player's turn
     startNextTurn()
+  }
+
+  def setKingPlayerID(playerID: Int): Unit = {
+    kingPlayerID = playerID
+    println("King set to: " + kingPlayerID)
+  }
+
+  def resetPlayersPassedStatus(): Unit = {
+    playersPassed = Set.empty
+    players.foreach(_.setHasPassed(false))
+  }
+
+  def markPlayerAsPassed(player: Player): Unit = {
+    playersPassed += player
+    player.setHasPassed(true)
   }
 
 }

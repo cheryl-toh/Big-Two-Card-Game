@@ -134,10 +134,9 @@ object GameLogic {
 
         case ("straight", ("full house" | "straight flush")) => true
         case ("straight", "straight") =>
-          (selectedCards.last.getRank() >= previousDealtCards.last.getRank() &&
+          (selectedCards.last.getRank() == previousDealtCards.last.getRank() &&
             selectedCards.last.getSuit() > previousDealtCards.last.getSuit()) ||
-            (selectedCards.last.getRank() > previousDealtCards.last.getRank() &&
-              selectedCards.last.getSuit() == previousDealtCards.last.getSuit())
+            selectedCards.last.getRank() > previousDealtCards.last.getRank()
 
         case ("straight", _) => false
 
