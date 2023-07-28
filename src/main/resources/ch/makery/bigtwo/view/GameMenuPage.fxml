@@ -22,7 +22,7 @@
             <Image url="@../../../../Images/logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="startGameButton" layoutX="827.0" layoutY="566.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="112.0" prefWidth="266.0" text="Start Game" textAlignment="CENTER">
+      <Button fx:id="startGameButton" layoutX="827.0" layoutY="566.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="112.0" prefWidth="266.0" styleClass="button-29" stylesheets="@../../../../style/style.css" text="Start Game" textAlignment="CENTER">
          <font>
             <Font size="38.0" />
          </font>

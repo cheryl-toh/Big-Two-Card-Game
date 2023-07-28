@@ -1,6 +1,6 @@
 package ch.makery.bigtwo
 
-import ch.makery.bigtwo.controllers.{GameController, LeaderBoardController, MainMenuController}
+import ch.makery.bigtwo.controllers.{GameController, HowToPlayController, LeaderBoardController, MainMenuController}
 import ch.makery.bigtwo.entities.Player
 import ch.makery.bigtwo.util.PlaySound
 import scalafx.application.JFXApp
@@ -35,7 +35,7 @@ object Main extends JFXApp{
 
     // Create a new Scene object with the gameRoot as the root node
     val gameScene = new Scene(roots2)
-
+    gameScene.getStylesheets.add(getClass.getResource("/style/style.css").toExternalForm())
     // Set the game scene to the primary stage to display it
     stage.setScene(gameScene)
     val file = getClass.getResource("/sounds/GameMusic.wav")
@@ -85,6 +85,26 @@ object Main extends JFXApp{
 
     val file2 = getClass.getResource("/sounds/MenuMusic.wav")
     PlaySound.playBackgroundMusic(file2)
+  }
+
+  def showHowToPlayDialog(): Unit = {
+    val resource = getClass.getResource("view/HowToPlayDialog.fxml")
+    val loader = new FXMLLoader(resource, NoDependencyResolver)
+    loader.load();
+    val roots2 = loader.getRoot[jfxs.Parent]
+    val control = loader.getController[HowToPlayController#Controller]
+    control.initialize()
+
+    val dialog = new Stage() {
+      initModality(Modality.ApplicationModal)
+      initOwner(stage)
+      scene = new Scene {
+        root = roots2
+      }
+    }
+
+    dialog.showAndWait()
+    //control.okClicked
   }
 
 

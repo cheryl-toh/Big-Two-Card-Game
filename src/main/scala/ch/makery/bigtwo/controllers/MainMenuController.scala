@@ -61,7 +61,8 @@ class MainMenuController(@FXML private val MainMenuBackground: ImageView,
   }
 
   def handleTutorialButton(action: ActionEvent): Unit = {
-
+    PlaySound.stopBackgroundMusic()
+    Main.showHowToPlayDialog()
   }
 
 

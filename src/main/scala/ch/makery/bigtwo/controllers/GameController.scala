@@ -3,9 +3,9 @@ package ch.makery.bigtwo.controllers
 import ch.makery.bigtwo.Main
 import ch.makery.bigtwo.Main.getClass
 import ch.makery.bigtwo.entities.{Card, Deck, Game, Player}
-import ch.makery.bigtwo.util.{GameLogic, PlaySound}
+import ch.makery.bigtwo.util.{GameLogic, PlaySound, TimerLogic}
 import javafx.fxml.FXML
-import scalafx.animation.{AnimationTimer, KeyFrame, Timeline}
+import scalafx.animation.{AnimationTimer, KeyFrame, Timeline, TranslateTransition}
 import scalafx.application.Platform
 import scalafx.scene.image.{Image, ImageView}
 import scalafxml.core.macros.sfxml
@@ -13,8 +13,11 @@ import scalafx.event.ActionEvent
 import scalafx.scene.control.{Alert, Label}
 import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.input.MouseEvent
+import scalafx.scene.layout.AnchorPane
 import scalafx.util.Duration
 import scalafxml.core.{FXMLLoader, NoDependencyResolver}
+
+import scala.collection.mutable.ListBuffer
 
 @sfxml
 class GameController (@FXML var leftPlayer: ImageView,
@@ -44,7 +47,29 @@ class GameController (@FXML var leftPlayer: ImageView,
                       @FXML var card10: ImageView,
                       @FXML var card11: ImageView,
                       @FXML var card12: ImageView,
-                      @FXML var card13: ImageView){
+                      @FXML var card13: ImageView,
+                      @FXML var lpCard1: ImageView,
+                      @FXML var lpCard2: ImageView,
+                      @FXML var lpCard3: ImageView,
+                      @FXML var lpCard4: ImageView,
+                      @FXML var lpCard5: ImageView,
+                      @FXML var mpCard1: ImageView,
+                      @FXML var mpCard2: ImageView,
+                      @FXML var mpCard3: ImageView,
+                      @FXML var mpCard4: ImageView,
+                      @FXML var mpCard5: ImageView,
+                      @FXML var rpCard1: ImageView,
+                      @FXML var rpCard2: ImageView,
+                      @FXML var rpCard3: ImageView,
+                      @FXML var rpCard4: ImageView,
+                      @FXML var rpCard5: ImageView,
+                      @FXML var lpPassed: Label,
+                      @FXML var mpPassed: Label,
+                      @FXML var rpPassed: Label,
+                      @FXML var mainGamePane: AnchorPane,
+                      @FXML var transitionPane: AnchorPane,
+                      @FXML var nextPlayer: Label,
+                      @FXML var countDown: Label){
 
   card1.userData = "card1"
   card2.userData = "card2"
@@ -59,6 +84,7 @@ class GameController (@FXML var leftPlayer: ImageView,
   card11.userData = "card11"
   card12.userData = "card12"
   card13.userData = "card13"
+
   // Maximum number of cards that can be displayed on the screen
   private val maxDisplayedCards = 13
   //initialize new deck and game
@@ -121,6 +147,8 @@ class GameController (@FXML var leftPlayer: ImageView,
     GameLogic.initializeGame(game)
     startPlayerAnimations()
 
+    transitionPane.visible = false
+
     distributeCardAnimation()
     updateCrowns()
   }
@@ -153,6 +181,7 @@ class GameController (@FXML var leftPlayer: ImageView,
         rightPlayerID.text = s"Player ${((turnPlayerID + 2) % 4) + 1}"
         updateCrowns()
         updateHandLength()
+        updateDealtCards()
 
         // Increment the frame index for each player
         currentFrameIndices = currentFrameIndices.map { case (playerID, frameIndex) =>
@@ -163,6 +192,40 @@ class GameController (@FXML var leftPlayer: ImageView,
     }
     // Start the animation timer
     animationTimer.start()
+  }
+
+  def updateDealtCards(): Unit = {
+    val currentPLayer = game.getCurrentPlayer()
+    val leftPlayer = game.getNextPlayer()
+    val middlePlayer = getNextPlayer(game.getNextPlayer())
+    val rightPlayer = getNextPlayer(getNextPlayer(game.getNextPlayer()))
+    val lpCards: List[ImageView] = List(lpCard1, lpCard2, lpCard3, lpCard4, lpCard5)
+    val mpCards: List[ImageView] = List(mpCard1, mpCard2, mpCard3, mpCard4, mpCard5)
+    val rpCards: List[ImageView] = List(rpCard1, rpCard2, rpCard3, rpCard4, rpCard5)
+    lpPassed.visible = false
+    mpPassed.visible = false
+    rpPassed.visible = false
+
+    if(!leftPlayer.getDealtCards().isEmpty){
+      showDealtCardsForPlayer(leftPlayer, lpCards)
+    }else{
+      lpCards.foreach(_.visible = false)
+      lpPassed.visible = true
+    }
+
+    if (!middlePlayer.getDealtCards().isEmpty) {
+      showDealtCardsForPlayer(middlePlayer, mpCards)
+    } else {
+      mpCards.foreach(_.visible = false)
+      mpPassed.visible = true
+    }
+
+    if (!rightPlayer.getDealtCards().isEmpty) {
+      showDealtCardsForPlayer(rightPlayer, rpCards)
+    } else {
+      rpCards.foreach(_.visible = false)
+      rpPassed.visible = true
+    }
   }
 
   def updateCrowns(): Unit = {
@@ -189,6 +252,23 @@ class GameController (@FXML var leftPlayer: ImageView,
 
     if (crownImageView.visible.value) {
       crownImageView.image = new Image(getClass.getResourceAsStream("/Images/crown.png"))
+    }
+  }
+
+  def showDealtCardsForPlayer(player: Player, cardImageViews: List[ImageView]): Unit = {
+
+    val playerDealtCards = player.getDealtCards()
+
+    // Clear the images in all card ImageView nodes first
+    cardImageViews.foreach(_.image = null)
+    // Hide all card ImageView nodes first
+    cardImageViews.foreach(_.visible = false)
+
+    // Show the cards in the middle of the ImageView nodes
+    for ((card, index) <- playerDealtCards.zipWithIndex) {
+      // Get the corresponding ImageView for the current card
+      val cardImageView = cardImageViews(index)
+      showCardAtIndex(cardImageView, card, index)
     }
   }
 
@@ -267,6 +347,49 @@ class GameController (@FXML var leftPlayer: ImageView,
     cardImageViews.foreach(_.translateY = 0)
   }
 
+  // Add a member variable to store the animationTimer
+  private var animationTimer2: AnimationTimer = _
+
+  def showTransitionPane(nextPlayerID: Int, countdownDuration: Int, onTransitionFinish: () => Unit): Unit = {
+    println("transition method called")
+    nextPlayer.text = s"Player $nextPlayerID"
+    countDown.text = countdownDuration.toString
+
+    mainGamePane.visible = false
+    // Show the transition pane
+    transitionPane.visible = true
+    val file = getClass.getResource("/sounds/Whoosh.wav")
+    PlaySound.playSoundEffect(file)
+
+    val file2 = getClass.getResource("/sounds/Clock.wav")
+    PlaySound.playSoundEffect(file2)
+
+    // Start the countdown timer
+    val startTime = System.currentTimeMillis()
+    val updateInterval = 1000 // Update the label every 1000 milliseconds (1 second)
+
+    TimerLogic.startCountdown(countdownDuration, () => {
+      // After the countdown timer finishes, hide the transition pane and execute the callback
+      transitionPane.visible = false
+      mainGamePane.visible = true
+      onTransitionFinish()
+    })
+
+    // Update the countdown label in real-time
+    val animationTimer = AnimationTimer { _ =>
+      val currentTime = System.currentTimeMillis()
+      val elapsedTime = currentTime - startTime
+      val remainingTime = countdownDuration * 1000 - elapsedTime
+
+      if (remainingTime <= 0) {
+        countDown.text = "0" // Ensure the label shows 0 when the countdown finishes
+      } else {
+        countDown.text = (remainingTime / 1000).toString
+      }
+    }
+    animationTimer.start()
+  }
+
   def handleCardPress(action: MouseEvent): Unit = {
     val currentPlayer = game.getCurrentPlayer()
     val cardImageViews = List(card1, card2, card3, card4, card5, card6, card7, card8, card9, card10, card11, card12, card13)
@@ -313,6 +436,7 @@ class GameController (@FXML var leftPlayer: ImageView,
       game.resetPlayersPassedStatus()
     }
 
+    currentPlayer.clearDealtCard()
     currentPlayer.clearSelectedCard()
     currentPlayer.setTurn(false)
 
@@ -320,6 +444,11 @@ class GameController (@FXML var leftPlayer: ImageView,
     updateShownHand()
     updateCrowns()
     updateHandLength()
+    updateDealtCards()
+
+    // Show the transition pane with a countdown of 5 seconds
+    val countdownDuration = 4
+    showTransitionPane(nextPlayer.getPlayerID(), countdownDuration, () => {})
   }
 
   def handleDealButton(action: ActionEvent): Unit = {
@@ -340,6 +469,7 @@ class GameController (@FXML var leftPlayer: ImageView,
       if (validDeal) {
         // Save the selected cards as previous dealt cards
         game.previousDealtCards = selectedCards
+        currentPlayer.setDealtCard(ListBuffer(selectedCards: _*))
         currentPlayer.hand --= selectedCards
         println("selectedcards: ")
         selectedCards.foreach(x => println(x.getRank() + "_" + x.getSuit()))
@@ -360,6 +490,9 @@ class GameController (@FXML var leftPlayer: ImageView,
           updateShownHand()
           updateHandLength()
 
+          // Show the transition pane with a countdown of 3 seconds
+          val countdownDuration = 4 // Change this to the desired duration
+          showTransitionPane(getNextPlayer(currentPlayer).getPlayerID(), countdownDuration, () => {})
         }
 
       } else {

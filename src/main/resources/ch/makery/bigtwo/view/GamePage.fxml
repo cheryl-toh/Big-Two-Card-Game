@@ -7,98 +7,156 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.bigtwo.controllers.GameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="visibility: true;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.bigtwo.controllers.GameController">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" layoutX="614.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <image>
-            <Image url="@../../../../Images/gamebg.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="leftPlayer" fitHeight="500.0" fitWidth="500.0" layoutX="106.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="middlePlayer" fitHeight="500.0" fitWidth="500.0" layoutX="740.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="rightPlayer" fitHeight="500.0" fitWidth="500.0" layoutX="1340.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="currentPlayer" fitHeight="500.0" fitWidth="500.0" layoutX="-116.0" layoutY="580.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="1920.0" fitWidth="1500.0" layoutX="234.0" layoutY="260.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Images/table.png" />
-         </image>
-      </ImageView>
-      <Button layoutX="698.0" layoutY="505.0" mnemonicParsing="false" onAction="#handlePassButton" prefHeight="89.0" prefWidth="182.0" text="Pass">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
-      <Button layoutX="980.0" layoutY="505.0" mnemonicParsing="false" onAction="#handleDealButton" prefHeight="89.0" prefWidth="182.0" text="Deal">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
-      <ImageView fx:id="card1" fitHeight="290.4" fitWidth="200.0" layoutX="280.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card2" fitHeight="290.4" fitWidth="200.0" layoutX="380.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card3" fitHeight="290.4" fitWidth="200.0" layoutX="480.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card4" fitHeight="290.4" fitWidth="200.0" layoutX="580.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card5" fitHeight="290.4" fitWidth="200.0" layoutX="680.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card6" fitHeight="290.4" fitWidth="200.0" layoutX="780.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card7" fitHeight="290.4" fitWidth="200.0" layoutX="880.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card8" fitHeight="290.4" fitWidth="200.0" layoutX="980.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card9" fitHeight="290.4" fitWidth="200.0" layoutX="1080.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card10" fitHeight="290.4" fitWidth="200.0" layoutX="1180.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card11" fitHeight="290.4" fitWidth="200.0" layoutX="1280.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card12" fitHeight="290.4" fitWidth="200.0" layoutX="1380.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="card13" fitHeight="290.4" fitWidth="200.0" layoutX="1480.0" layoutY="650.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="currentPlayerID" layoutX="117.0" layoutY="968.0" text="Label" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label fx:id="leftPlayerID" layoutX="501.0" layoutY="492.0" text="Label" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label fx:id="middlePlayerID" layoutX="752.0" layoutY="410.0" text="Label" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <Label fx:id="rightPlayerID" layoutX="1380.0" layoutY="509.0" text="Label" textFill="WHITE">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="middlePlayerCrown" fitHeight="50.0" fitWidth="50.0" layoutX="755.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="leftPlayerCrown" fitHeight="50.0" fitWidth="50.0" layoutX="504.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="rightPlayerCrown" fitHeight="50.0" fitWidth="50.0" layoutX="1383.0" layoutY="459.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="currentPlayerCrown" fitHeight="50.0" fitWidth="50.0" layoutX="56.0" layoutY="953.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="740.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Images/cardLength.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="489.0" layoutY="360.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Images/cardLength.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="1368.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../Images/cardLength.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="leftPlayerLength" contentDisplay="CENTER" layoutX="508.0" layoutY="388.0" text="Label">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="middlePlayerLength" contentDisplay="CENTER" layoutX="759.0" layoutY="295.0" text="Label">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
-      <Label fx:id="rightPlayerLength" contentDisplay="CENTER" layoutX="1387.0" layoutY="398.0" text="Label">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Label>
+      <AnchorPane fx:id="transitionPane" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #89CFF0; visibility: false;">
+         <children>
+            <Label fx:id="nextPlayer" layoutX="856.0" layoutY="136.0" text="Player 1">
+               <font>
+                  <Font size="72.0" />
+               </font>
+            </Label>
+            <Label layoutX="765.0" layoutY="332.0" text="Get ready in...">
+               <font>
+                  <Font size="72.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="400.0" fitWidth="400.0" layoutX="782.0" layoutY="536.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Images/clock.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="countDown" layoutX="969.0" layoutY="721.0" text="3">
+               <font>
+                  <Font size="72.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="mainGamePane" layoutX="-2.0" layoutY="-3.0" prefHeight="1080.0" prefWidth="1920.0" style="visibility: true;">
+         <children>
+            <ImageView fitHeight="1080.0" fitWidth="1920.0" layoutX="1.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="1.0" AnchorPane.topAnchor="2.0">
+               <image>
+                  <Image url="@../../../../Images/gamebg.jpg" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="leftPlayer" fitHeight="500.0" fitWidth="500.0" layoutX="69.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="middlePlayer" fitHeight="500.0" fitWidth="500.0" layoutX="807.0" layoutY="-42.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="rightPlayer" fitHeight="500.0" fitWidth="500.0" layoutX="1469.0" layoutY="172.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="currentPlayer" fitHeight="500.0" fitWidth="500.0" layoutX="-106.0" layoutY="586.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="1920.0" fitWidth="1500.0" layoutX="269.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Images/table.png" />
+               </image>
+            </ImageView>
+            <Button layoutX="775.0" layoutY="497.0" mnemonicParsing="false" onAction="#handlePassButton" prefHeight="89.0" prefWidth="182.0" text="Pass">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <Button layoutX="1072.0" layoutY="497.0" mnemonicParsing="false" onAction="#handleDealButton" prefHeight="89.0" prefWidth="182.0" text="Deal">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Button>
+            <ImageView fx:id="card1" fitHeight="290.4" fitWidth="200.0" layoutX="319.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card2" fitHeight="290.4" fitWidth="200.0" layoutX="419.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card3" fitHeight="290.4" fitWidth="200.0" layoutX="519.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card4" fitHeight="290.4" fitWidth="200.0" layoutX="619.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card5" fitHeight="290.4" fitWidth="200.0" layoutX="719.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card6" fitHeight="290.4" fitWidth="200.0" layoutX="819.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card7" fitHeight="290.4" fitWidth="200.0" layoutX="919.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card8" fitHeight="290.4" fitWidth="200.0" layoutX="1019.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card9" fitHeight="290.4" fitWidth="200.0" layoutX="1119.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card10" fitHeight="290.4" fitWidth="200.0" layoutX="1219.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card11" fitHeight="290.4" fitWidth="200.0" layoutX="1319.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card12" fitHeight="290.4" fitWidth="200.0" layoutX="1419.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="card13" fitHeight="290.4" fitWidth="200.0" layoutX="1519.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="currentPlayerID" layoutX="76.0" layoutY="943.0" text="Player ?" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="leftPlayerID" layoutX="404.0" layoutY="411.0" text="Player ?" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="middlePlayerID" layoutX="766.0" layoutY="325.0" text="Player ?" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="rightPlayerID" layoutX="1328.0" layoutY="391.0" text="Player ?" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="middlePlayerCrown" fitHeight="50.0" fitWidth="50.0" layoutX="766.0" layoutY="264.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="leftPlayerCrown" fitHeight="50.0" fitWidth="50.0" layoutX="404.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="rightPlayerCrown" fitHeight="50.0" fitWidth="50.0" layoutX="1328.0" layoutY="331.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="currentPlayerCrown" fitHeight="50.0" fitWidth="50.0" layoutX="180.0" layoutY="936.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="1419.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Images/cardLength.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="851.0" layoutY="302.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Images/cardLength.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="499.0" layoutY="388.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../Images/cardLength.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="leftPlayerLength" contentDisplay="CENTER" layoutX="529.0" layoutY="414.0" text="13">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="middlePlayerLength" contentDisplay="CENTER" layoutX="881.0" layoutY="329.0" text="13">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="rightPlayerLength" contentDisplay="CENTER" layoutX="1451.0" layoutY="395.0" text="13">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="lpCard1" fitHeight="72.9" fitWidth="50.0" layoutX="404.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="lpCard2" fitHeight="72.9" fitWidth="50.0" layoutX="429.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="lpCard3" fitHeight="72.9" fitWidth="50.0" layoutX="454.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="lpCard4" fitHeight="72.9" fitWidth="50.0" layoutX="479.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="lpCard5" fitHeight="72.9" fitWidth="50.0" layoutX="504.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="mpCard1" fitHeight="72.9" fitWidth="50.0" layoutX="766.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="mpCard2" fitHeight="72.9" fitWidth="50.0" layoutX="791.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="mpCard3" fitHeight="72.9" fitWidth="50.0" layoutX="816.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="mpCard4" fitHeight="72.9" fitWidth="50.0" layoutX="841.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="mpCard5" fitHeight="72.9" fitWidth="50.0" layoutX="866.0" layoutY="186.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="rpCard1" fitHeight="72.9" fitWidth="50.0" layoutX="1328.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="rpCard2" fitHeight="72.9" fitWidth="50.0" layoutX="1353.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="rpCard3" fitHeight="72.9" fitWidth="50.0" layoutX="1378.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="rpCard4" fitHeight="72.9" fitWidth="50.0" layoutX="1403.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="rpCard5" fitHeight="72.9" fitWidth="50.0" layoutX="1428.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="lpPassed" layoutX="406.0" layoutY="299.0" style="visibility: false;" text="Passed" textFill="WHITE">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="mpPassed" layoutX="759.0" layoutY="222.0" style="visibility: false;" text="Passed" textFill="WHITE">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+            <Label fx:id="rpPassed" layoutX="1330.0" layoutY="276.0" style="visibility: false;" text="Passed" textFill="WHITE">
+               <font>
+                  <Font size="32.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

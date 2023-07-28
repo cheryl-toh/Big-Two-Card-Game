@@ -9,6 +9,7 @@ class Player (playerIDS: Int){
   private var selectCard: ListBuffer[Card] = ListBuffer.empty[Card]
   private var isTurn: Boolean = false
   private var hasPassed: Boolean = false
+  private var dealtCards: ListBuffer[Card] = ListBuffer.empty[Card]
 
   def getPlayerID(): Int = {
     playerID
@@ -60,5 +61,17 @@ class Player (playerIDS: Int){
 
   def setHasPassed(passed: Boolean): Unit = {
     hasPassed = passed
+  }
+
+  def getDealtCards(): List[Card] = {
+    dealtCards.toList
+  }
+
+  def setDealtCard(cards: ListBuffer[Card]): Unit = {
+    dealtCards = cards
+  }
+
+  def clearDealtCard(): Unit = {
+    dealtCards = ListBuffer.empty[Card]
   }
 }
