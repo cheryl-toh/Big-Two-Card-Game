@@ -409,6 +409,9 @@ class GameController (@FXML var leftPlayer: ImageView,
       cardImageViews(cardIndex).translateY = 0
     } else {
       // If it's not, add it to the list and move the card up a bit
+      val file = getClass.getResource("/sounds/Card.wav")
+      PlaySound.playSoundEffect(file)
+
       currentPlayer.addSelectedCard(card)
       cardImageViews(cardIndex).translateY = -30
     }
@@ -449,6 +452,8 @@ class GameController (@FXML var leftPlayer: ImageView,
     // Show the transition pane with a countdown of 5 seconds
     val countdownDuration = 4
     showTransitionPane(nextPlayer.getPlayerID(), countdownDuration, () => {})
+    val file = getClass.getResource("/sounds/Click.wav")
+    PlaySound.playSoundEffect(file)
   }
 
   def handleDealButton(action: ActionEvent): Unit = {
@@ -467,6 +472,8 @@ class GameController (@FXML var leftPlayer: ImageView,
       // Check if the selected cards can be dealt
       val validDeal = GameLogic.checkDealable(selectedCards)
       if (validDeal) {
+        val file = getClass.getResource("/sounds/Click.wav")
+        PlaySound.playSoundEffect(file)
         // Save the selected cards as previous dealt cards
         game.previousDealtCards = selectedCards
         currentPlayer.setDealtCard(ListBuffer(selectedCards: _*))

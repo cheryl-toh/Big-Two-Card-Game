@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.bigtwo.controllers.MainMenuController">
+<AnchorPane maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.bigtwo.controllers.MainMenuController">
    <children>
-      <ImageView fx:id="MainMenuBackground" fitWidth="3840.0" layoutX="-960.0" layoutY="-1609.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-1151.0" AnchorPane.leftAnchor="-960.0" AnchorPane.rightAnchor="-960.0" AnchorPane.topAnchor="-1609.0">
+      <ImageView fx:id="MainMenuBackground" fitWidth="3840.0" layoutX="-985.0" layoutY="-1588.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-1172.0" AnchorPane.leftAnchor="-985.0" AnchorPane.rightAnchor="-935.0" AnchorPane.topAnchor="-1588.0">
          <image>
             <Image url="@../../../../Images/mainmenubg.png" />
          </image>
@@ -22,12 +22,12 @@
             <Image url="@../../../../Images/logo.png" />
          </image>
       </ImageView>
-      <Button fx:id="startGameButton" layoutX="827.0" layoutY="566.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="112.0" prefWidth="266.0" styleClass="button-29" stylesheets="@../../../../style/style.css" text="Start Game" textAlignment="CENTER">
+      <Button fx:id="startGameButton" layoutX="802.0" layoutY="559.0" mnemonicParsing="false" onAction="#handleStartGame" prefHeight="100.0" prefWidth="317.0" styleClass="button-red" text="Start Game" textAlignment="CENTER">
          <font>
             <Font size="38.0" />
          </font>
       </Button>
-      <Button layoutX="827.0" layoutY="716.0" mnemonicParsing="false" onAction="#handleTutorialButton" prefHeight="112.0" prefWidth="266.0" text="How to play" textAlignment="CENTER">
+      <Button layoutX="802.0" layoutY="685.0" mnemonicParsing="false" onAction="#handleTutorialButton" prefHeight="100.0" prefWidth="317.0" styleClass="button-yellow" text="How to play" textAlignment="CENTER">
          <font>
             <Font size="38.0" />
          </font>

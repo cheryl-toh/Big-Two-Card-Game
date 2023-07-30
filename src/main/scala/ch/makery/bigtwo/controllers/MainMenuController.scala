@@ -57,10 +57,14 @@ class MainMenuController(@FXML private val MainMenuBackground: ImageView,
   }
 
   def handleStartGame(action: ActionEvent): Unit = {
+    val file = getClass.getResource("/sounds/Click.wav")
+    PlaySound.playSoundEffect(file)
     Main.showGameScene()
   }
 
   def handleTutorialButton(action: ActionEvent): Unit = {
+    val file = getClass.getResource("/sounds/Click.wav")
+    PlaySound.playSoundEffect(file)
     PlaySound.stopBackgroundMusic()
     Main.showHowToPlayDialog()
   }

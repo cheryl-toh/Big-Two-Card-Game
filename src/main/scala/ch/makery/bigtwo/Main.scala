@@ -10,12 +10,15 @@ import scalafx.Includes._
 import scalafx.scene.Scene
 import javafx.{scene => jfxs}
 import scalafx.scene.layout.AnchorPane
+import scalafx.scene.text.Font
 import scalafx.stage.{Modality, Stage}
 
 import java.io.File
 
 object Main extends JFXApp{
 
+  // Load the custom font
+  Font.loadFont(getClass.getResource("/fonts/Warungasem-rgO1O.ttf").toExternalForm, 24)
 
   stage = new PrimaryStage{
     title = "Big Two"
@@ -35,7 +38,7 @@ object Main extends JFXApp{
 
     // Create a new Scene object with the gameRoot as the root node
     val gameScene = new Scene(roots2)
-    gameScene.getStylesheets.add(getClass.getResource("/style/style.css").toExternalForm())
+
     // Set the game scene to the primary stage to display it
     stage.setScene(gameScene)
     val file = getClass.getResource("/sounds/GameMusic.wav")
@@ -54,7 +57,7 @@ object Main extends JFXApp{
 
     // Create a new Scene object with the gameRoot as the root node
     val gameScene = new Scene(roots)
-
+    gameScene.getStylesheets.add(getClass.getResource("/style/style.css").toExternalForm())
 
     // Set the game scene to the primary stage to display it
     stage.setScene(gameScene)

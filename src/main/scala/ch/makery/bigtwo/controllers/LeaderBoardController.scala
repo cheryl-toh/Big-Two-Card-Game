@@ -7,6 +7,7 @@ import scalafx.event.ActionEvent
 import scalafx.scene.control.Label
 import scalafxml.core.macros.sfxml
 import ch.makery.bigtwo.Main
+import ch.makery.bigtwo.util.PlaySound
 
 @sfxml
 class LeaderBoardController (@FXML var numberOne: Label,
@@ -23,7 +24,7 @@ class LeaderBoardController (@FXML var numberOne: Label,
 
     // Add player names and hand lengths to the observable list in descending order
     for (player <- sortedPlayers) {
-      leaderboardData.add(s"Player ${player.getPlayerID()}: ${player.showHand().length} cards")
+      leaderboardData.add(s"Player ${player.getPlayerID()}")
     }
 
     // Update the labels with the leaderboard data
@@ -34,11 +35,17 @@ class LeaderBoardController (@FXML var numberOne: Label,
   }
 
   def handleAgain(action: ActionEvent): Unit = {
+    val file = getClass.getResource("/sounds/Click.wav")
+    PlaySound.playSoundEffect(file)
+
     Main.showGameScene()
   }
 
 
   def handleQuit(action: ActionEvent): Unit = {
+    val file = getClass.getResource("/sounds/Click.wav")
+    PlaySound.playSoundEffect(file)
+
     Main.showMainMenuScene()
   }
 

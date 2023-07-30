@@ -7,26 +7,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="visibility: true;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.bigtwo.controllers.GameController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" style="visibility: true;" stylesheets="@../../../../style/style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.makery.bigtwo.controllers.GameController">
    <children>
       <AnchorPane fx:id="transitionPane" prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: #89CFF0; visibility: false;">
          <children>
-            <Label fx:id="nextPlayer" layoutX="856.0" layoutY="136.0" text="Player 1">
+            <Label fx:id="nextPlayer" layoutX="778.0" layoutY="150.0" styleClass="heading" text="Player 1">
                <font>
                   <Font size="72.0" />
                </font>
             </Label>
-            <Label layoutX="765.0" layoutY="332.0" text="Get ready in...">
+            <Label layoutX="746.0" layoutY="332.0" styleClass="normal-text" text="Get ready in...">
                <font>
                   <Font size="72.0" />
                </font>
             </Label>
-            <ImageView fitHeight="400.0" fitWidth="400.0" layoutX="782.0" layoutY="536.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="400.0" fitWidth="400.0" layoutX="795.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../Images/clock.png" />
                </image>
             </ImageView>
-            <Label fx:id="countDown" layoutX="969.0" layoutY="721.0" text="3">
+            <Label fx:id="countDown" layoutX="965.0" layoutY="724.0" styleClass="normal-text" text="3">
                <font>
                   <Font size="72.0" />
                </font>
@@ -49,12 +49,12 @@
                   <Image url="@../../../../Images/table.png" />
                </image>
             </ImageView>
-            <Button layoutX="775.0" layoutY="497.0" mnemonicParsing="false" onAction="#handlePassButton" prefHeight="89.0" prefWidth="182.0" text="Pass">
+            <Button layoutX="818.0" layoutY="488.0" mnemonicParsing="false" onAction="#handlePassButton" prefHeight="89.0" prefWidth="146.0" styleClass="button-bubble" text="Pass">
                <font>
                   <Font size="24.0" />
                </font>
             </Button>
-            <Button layoutX="1072.0" layoutY="497.0" mnemonicParsing="false" onAction="#handleDealButton" prefHeight="89.0" prefWidth="182.0" text="Deal">
+            <Button layoutX="1046.0" layoutY="488.0" mnemonicParsing="false" onAction="#handleDealButton" prefHeight="89.0" prefWidth="146.0" styleClass="button-bubble" text="Deal">
                <font>
                   <Font size="24.0" />
                </font>
@@ -72,22 +72,22 @@
             <ImageView fx:id="card11" fitHeight="290.4" fitWidth="200.0" layoutX="1319.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="card12" fitHeight="290.4" fitWidth="200.0" layoutX="1419.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="card13" fitHeight="290.4" fitWidth="200.0" layoutX="1519.0" layoutY="638.0" onMouseClicked="#handleCardPress" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="currentPlayerID" layoutX="76.0" layoutY="943.0" text="Player ?" textFill="WHITE">
+            <Label fx:id="currentPlayerID" layoutX="76.0" layoutY="943.0" styleClass="label-text" text="Player ?" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="leftPlayerID" layoutX="404.0" layoutY="411.0" text="Player ?" textFill="WHITE">
+            <Label fx:id="leftPlayerID" layoutX="394.0" layoutY="407.0" styleClass="label-text" text="Player ?" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="middlePlayerID" layoutX="766.0" layoutY="325.0" text="Player ?" textFill="WHITE">
+            <Label fx:id="middlePlayerID" layoutX="745.0" layoutY="325.0" styleClass="label-text" text="Player ?" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="rightPlayerID" layoutX="1328.0" layoutY="391.0" text="Player ?" textFill="WHITE">
+            <Label fx:id="rightPlayerID" layoutX="1307.0" layoutY="387.0" styleClass="label-text" text="Player ?" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
@@ -111,17 +111,17 @@
                   <Image url="@../../../../Images/cardLength.png" />
                </image>
             </ImageView>
-            <Label fx:id="leftPlayerLength" contentDisplay="CENTER" layoutX="529.0" layoutY="414.0" text="13">
+            <Label fx:id="leftPlayerLength" contentDisplay="CENTER" layoutX="527.0" layoutY="409.0" styleClass="hand-length" text="13">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="middlePlayerLength" contentDisplay="CENTER" layoutX="881.0" layoutY="329.0" text="13">
+            <Label fx:id="middlePlayerLength" contentDisplay="CENTER" layoutX="879.0" layoutY="322.0" styleClass="hand-length" text="13">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label fx:id="rightPlayerLength" contentDisplay="CENTER" layoutX="1451.0" layoutY="395.0" text="13">
+            <Label fx:id="rightPlayerLength" contentDisplay="CENTER" layoutX="1447.0" layoutY="391.0" styleClass="hand-length" text="13">
                <font>
                   <Font size="18.0" />
                </font>
@@ -141,17 +141,17 @@
             <ImageView fx:id="rpCard3" fitHeight="72.9" fitWidth="50.0" layoutX="1378.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="rpCard4" fitHeight="72.9" fitWidth="50.0" layoutX="1403.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="rpCard5" fitHeight="72.9" fitWidth="50.0" layoutX="1428.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="lpPassed" layoutX="406.0" layoutY="299.0" style="visibility: false;" text="Passed" textFill="WHITE">
+            <Label fx:id="lpPassed" layoutX="406.0" layoutY="299.0" style="visibility: false;" styleClass="passed-label" text="Passed" textFill="WHITE">
                <font>
                   <Font size="32.0" />
                </font>
             </Label>
-            <Label fx:id="mpPassed" layoutX="759.0" layoutY="222.0" style="visibility: false;" text="Passed" textFill="WHITE">
+            <Label fx:id="mpPassed" layoutX="759.0" layoutY="222.0" style="visibility: false;" styleClass="passed-label" text="Passed" textFill="WHITE">
                <font>
                   <Font size="32.0" />
                </font>
             </Label>
-            <Label fx:id="rpPassed" layoutX="1330.0" layoutY="276.0" style="visibility: false;" text="Passed" textFill="WHITE">
+            <Label fx:id="rpPassed" layoutX="1330.0" layoutY="276.0" style="visibility: false;" styleClass="passed-label" text="Passed" textFill="WHITE">
                <font>
                   <Font size="32.0" />
                </font>
