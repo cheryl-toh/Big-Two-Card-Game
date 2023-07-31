@@ -9,11 +9,14 @@ class Deck {
   //list to store all 52 cards
   private var cards: List[Card] = Nil
 
-  //initialize card objects
+  // Method to initialize card objects
   def initializeDeck(): Unit = {
+
+    // initialize rank and suit range
     val ranks = 1 to 13
     val suits = 1 to 4
 
+    // add all cards to deck
     cards = (for {
       suit <- suits
       rank <- ranks
@@ -23,12 +26,12 @@ class Deck {
 
   }
 
-  //shuffle deck
+  // Method to shuffle deck
   def shuffle(): Unit = {
     cards = Random.shuffle(cards)
   }
 
-  //draw top card of the deck
+  // Method to draw top card of the deck
   def drawCard(): Option[Card] = {
     cards match {
       case Nil => None
@@ -38,6 +41,7 @@ class Deck {
     }
   }
 
+  // getter
   def getCards(): List[Card] = {
     cards
   }

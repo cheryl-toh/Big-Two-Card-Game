@@ -1,14 +1,14 @@
 package ch.makery.bigtwo.util
 
 import scalafx.animation.{Animation, KeyFrame, Timeline}
-import scalafx.event.ActionEvent
 import scalafx.util.Duration
-import scalafx.Includes._
+
 
 object TimerLogic {
+
+  // Initialize attributes
   private var onTimerFinishCallback: () => Unit = () => {}
   private var currentCountdownDuration: Int = 0
-
   private val timeline: Timeline = new Timeline {
     cycleCount = 1 // Only one cycle (not repeating)
     onFinished = (_: javafx.event.ActionEvent) => {
@@ -17,12 +17,16 @@ object TimerLogic {
     }
   }
 
+
+  // Method to start timer countdown
   def startCountdown(duration: Int, onFinish: () => Unit): Unit = {
+
     // Stop the timeline if it is already running
     if (timeline.status == Animation.Status.Running) {
       timeline.stop()
     }
 
+    // set duration and callback of timer
     currentCountdownDuration = duration
     onTimerFinishCallback = onFinish
 
@@ -37,11 +41,16 @@ object TimerLogic {
 
     // Start the timeline
     timeline.playFromStart()
+
   }
 
+
+  // Method to get current countdown duration
   def getCurrentCountdownDuration: Int = currentCountdownDuration
 
+  // Method to stop countdown
   def stopCountdown(): Unit = {
+
     // Stop the timeline if it is running
     if (timeline.getStatus == Animation.Status.Running) {
       timeline.stop()
