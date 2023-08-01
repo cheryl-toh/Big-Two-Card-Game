@@ -20,7 +20,7 @@ class HowToPlayController(@FXML var tutorial: MediaView,
   def initialize(): Unit = {
 
     // get video to be played
-    val resourceUrl = getClass.getResource("/Video/temp.mp4")
+    val resourceUrl = getClass.getResource("/Video/tutorial.mp4")
 
     // test line for video source
     println("Resource URL: " + resourceUrl)
@@ -41,7 +41,7 @@ class HowToPlayController(@FXML var tutorial: MediaView,
 
     } else {
       //print error message if video not found
-      println("Resource not found: Video/temp.mp4")
+      println("Resource not found: Video/tutorial.mp4")
 
     }
   }
