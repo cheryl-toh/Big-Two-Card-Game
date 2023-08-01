@@ -34,10 +34,24 @@ class Game (playersS: List[Player], deck: Deck){
     val totalPlayers = players.length
     val totalCards = deck.getCards()
 
-    // distribute cards to all players
-    for (i <- totalCards.indices by totalPlayers){
-      for (j <- 0 until totalPlayers){
-        players(j).addCardToHand(totalCards(i + j))
+    // Find the index of the card "1_1.png" in the deck
+    val cardIndexToMove = totalCards.indexWhere(card => card.getRank() == 1 && card.getSuit() == 1)
+    val cardToMove = totalCards(cardIndexToMove)
+    val updatedDeck = totalCards.patch(cardIndexToMove, Nil, 1)
+
+    // Calculate the number of cards each player should receive
+    val cardsPerPlayer = totalCards.length / totalPlayers
+
+    // Distribute cards to all players
+    for (i <- 0 until totalPlayers) {
+      // Add the specific card to player 1's hand
+      if (i == 0) {
+        players(i).addCardToHand(cardToMove)
+      }
+
+      // Distribute other cards normally
+      for (j <- 0 until cardsPerPlayer - 1) {
+        players(i).addCardToHand(updatedDeck(i * (cardsPerPlayer - 1) + j))
       }
     }
   }
