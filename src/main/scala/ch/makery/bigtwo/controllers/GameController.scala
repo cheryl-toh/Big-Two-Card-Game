@@ -206,44 +206,42 @@ class GameController (@FXML var leftPlayer: ImageView,
     val mpCards: List[ImageView] = List(mpCard1, mpCard2, mpCard3, mpCard4, mpCard5)
     val rpCards: List[ImageView] = List(rpCard1, rpCard2, rpCard3, rpCard4, rpCard5)
 
-    //set all image views to be invisible
-    lpPassed.visible = false
-    mpPassed.visible = false
-    rpPassed.visible = false
-
-    //show dealt cards for left player
-    if(leftPlayer.getDealtCards().nonEmpty){
+    // Show dealt cards for left player
+    if (leftPlayer.getDealtCards().nonEmpty) {
       showDealtCardsForPlayer(leftPlayer, lpCards)
-    }else if (leftPlayer.getHasPassed()){
-
-      //show passed label if player passed their turn
+    } else if (leftPlayer.getHasPassed()) {
+      // Show "Passed" label if player passed their turn
       lpCards.foreach(_.visible = false)
       lpPassed.visible = true
-    }else {
+    } else {
+      // Hide "Passed" label if player has not passed their turn and has no dealt cards
+      lpCards.foreach(_.visible = false)
       lpPassed.visible = false
     }
 
-    //show dealt cards for middle player
+    // Show dealt cards for middle player
     if (middlePlayer.getDealtCards().nonEmpty) {
       showDealtCardsForPlayer(middlePlayer, mpCards)
     } else if (middlePlayer.getHasPassed()) {
-
-      //show passed label if player passed their turn
+      // Show "Passed" label if player passed their turn
       mpCards.foreach(_.visible = false)
       mpPassed.visible = true
     } else {
+      // Hide "Passed" label if player has not passed their turn and has no dealt cards
+      mpCards.foreach(_.visible = false)
       mpPassed.visible = false
     }
 
-    //show dealt cards for right player
+    // Show dealt cards for right player
     if (rightPlayer.getDealtCards().nonEmpty) {
       showDealtCardsForPlayer(rightPlayer, rpCards)
     } else if (rightPlayer.getHasPassed()) {
-
-      //show passed label if player passed their turn
+      // Show "Passed" label if player passed their turn
       rpCards.foreach(_.visible = false)
       rpPassed.visible = true
     } else {
+      // Hide "Passed" label if player has not passed their turn and has no dealt cards
+      rpCards.foreach(_.visible = false)
       rpPassed.visible = false
     }
   }
@@ -266,6 +264,42 @@ class GameController (@FXML var leftPlayer: ImageView,
       val cardImageView = cardImageViews(index)
       showCardAtIndex(cardImageView, card, index)
     }
+  }
+
+
+  // Method to reset dealt cards for all players
+  private def resetDealtCardsForAllPlayers(): Unit = {
+    val lpCards: List[ImageView] = List(lpCard1, lpCard2, lpCard3, lpCard4, lpCard5)
+    val mpCards: List[ImageView] = List(mpCard1, mpCard2, mpCard3, mpCard4, mpCard5)
+    val rpCards: List[ImageView] = List(rpCard1, rpCard2, rpCard3, rpCard4, rpCard5)
+
+    lpCards.foreach(_.image = null)
+    mpCards.foreach(_.image = null)
+    rpCards.foreach(_.image = null)
+
+    lpCards.foreach(_.visible = false)
+    mpCards.foreach(_.visible = false)
+    rpCards.foreach(_.visible = false)
+
+    lpPassed.visible = false
+    mpPassed.visible = false
+    rpPassed.visible = false
+  }
+
+
+  // Method to set new king
+  private def setNewKing(player: Player): Unit = {
+    game.setKingPlayerID(player.getPlayerID())
+
+    // Play reset king sound
+    val file = getClass.getResource("/sounds/setKing.wav")
+    PlaySound.playSoundEffect(file)
+
+    // Reset the previousDealtCards list to be empty
+    game.previousDealtCards = List.empty[Card]
+
+    // Reset dealt cards for all players
+    resetDealtCardsForAllPlayers()
   }
 
   // Method to update crown position
@@ -523,7 +557,7 @@ class GameController (@FXML var leftPlayer: ImageView,
 
       // Find the player who has not dealt and passed in this round and set them as the king
       val nonDealtAndPassedPlayer = game.players.find(p => !p.getHasPassed()).get
-      game.setKingPlayerID(nonDealtAndPassedPlayer.getPlayerID())
+      setNewKing(nonDealtAndPassedPlayer)
 
       //reset players passed status
       game.resetPlayersPassedStatus()
@@ -561,6 +595,10 @@ class GameController (@FXML var leftPlayer: ImageView,
     val validSelect = GameLogic.checkCombo(selectedCards)
 
     if (validSelect == "invalid") {
+
+      // Play error sound
+      val file = getClass.getResource("/sounds/error.wav")
+      PlaySound.playSoundEffect(file)
 
       // Show an alert indicating invalid combo
       val alert = new Alert(AlertType.Warning)
@@ -617,6 +655,10 @@ class GameController (@FXML var leftPlayer: ImageView,
         }
 
       } else {
+
+        // Play error sound
+        val file = getClass.getResource("/sounds/error.wav")
+        PlaySound.playSoundEffect(file)
 
         // Show an alert indicating invalid deal
         val alert = new Alert(AlertType.Warning)
