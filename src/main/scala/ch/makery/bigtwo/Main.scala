@@ -139,6 +139,9 @@ object Main extends JFXApp{
       initModality(Modality.ApplicationModal)
       initOwner(stage)
 
+      // Disable the standard window decorations (close button, etc.)
+      initStyle(javafx.stage.StageStyle.UNDECORATED)
+
       // set up scene
       scene = new Scene {
         root = roots2
@@ -148,6 +151,4 @@ object Main extends JFXApp{
     // show dialog
     dialog.showAndWait()
   }
-
-
 }
