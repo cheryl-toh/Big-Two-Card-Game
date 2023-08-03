@@ -592,7 +592,15 @@ class GameController (@FXML var leftPlayer: ImageView,
 
     //get current player and its selected cards
     val currentPlayer = game.getCurrentPlayer()
-    val selectedCards = currentPlayer.getSelectCard()
+    val selectedCards = currentPlayer.getSelectCard().sortWith((card1, card2) => {
+      if (card1.getRank < card2.getRank()) {
+        true
+      } else if (card1.getRank() == card2.getRank()) {
+        card1.getSuit() < card2.getSuit()
+      } else {
+        false
+      }
+    })
 
     //check if selected cards is valid combo
     val validSelect = GameLogic.checkCombo(selectedCards)
