@@ -28,7 +28,15 @@ class Deck {
 
   // Method to shuffle deck
   def shuffle(): Unit = {
-    cards = Random.shuffle(cards)
+    // Separate the card "1_1" from the rest of the deck
+    val card1 = cards.head
+    val otherCards = cards.tail
+
+    // Shuffle the remaining cards
+    val shuffledOtherCards = Random.shuffle(otherCards)
+
+    // Combine the card "1_1" and the shuffled remaining cards
+    cards = card1 :: shuffledOtherCards
   }
 
   // Method to draw top card of the deck
