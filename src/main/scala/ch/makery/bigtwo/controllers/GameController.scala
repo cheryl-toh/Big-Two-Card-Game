@@ -209,6 +209,7 @@ class GameController (@FXML var leftPlayer: ImageView,
     // Show dealt cards for left player
     if (leftPlayer.getDealtCards().nonEmpty) {
       showDealtCardsForPlayer(leftPlayer, lpCards)
+      lpPassed.visible = false
     } else if (leftPlayer.getHasPassed()) {
       // Show "Passed" label if player passed their turn
       lpCards.foreach(_.visible = false)
@@ -222,6 +223,7 @@ class GameController (@FXML var leftPlayer: ImageView,
     // Show dealt cards for middle player
     if (middlePlayer.getDealtCards().nonEmpty) {
       showDealtCardsForPlayer(middlePlayer, mpCards)
+      mpPassed.visible = false
     } else if (middlePlayer.getHasPassed()) {
       // Show "Passed" label if player passed their turn
       mpCards.foreach(_.visible = false)
@@ -235,6 +237,7 @@ class GameController (@FXML var leftPlayer: ImageView,
     // Show dealt cards for right player
     if (rightPlayer.getDealtCards().nonEmpty) {
       showDealtCardsForPlayer(rightPlayer, rpCards)
+      rpPassed.visible = false
     } else if (rightPlayer.getHasPassed()) {
       // Show "Passed" label if player passed their turn
       rpCards.foreach(_.visible = false)
@@ -643,11 +646,13 @@ class GameController (@FXML var leftPlayer: ImageView,
 
           // Set the current player's turn to false and move to the next turn
           currentPlayer.setTurn(false)
+          currentPlayer.setHasPassed(false)
 
           // Reset card translations and update shown hand for the next player
           resetCardTranslations()
           updateShownHand()
           updateHandLength()
+          updateDealtCards()
 
           // Show the transition pane with a countdown of 4 seconds
           val countdownDuration = 4

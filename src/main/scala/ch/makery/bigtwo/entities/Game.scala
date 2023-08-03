@@ -124,9 +124,6 @@ class Game (playersS: List[Player], deck: Deck){
     // set playersPassed to empty
     playersPassed = Set.empty
 
-    // set all players passed boolean to false
-    players.foreach(_.setHasPassed(false))
-
   }
 
   // Method to set player as passed
