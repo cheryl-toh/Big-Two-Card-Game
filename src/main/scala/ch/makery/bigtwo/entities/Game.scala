@@ -30,18 +30,13 @@ class Game (playersS: List[Player], deck: Deck){
   // Method to distribute cards
   private def distributeCards(): Unit = {
 
-    // get number of players and number of cards
+    /// get number of players
     val totalPlayers = players.length
-    val totalCards = deck.getCards()
-
-    // Calculate the number of cards each player should receive
-    val cardsPerPlayer = totalCards.length / totalPlayers
 
     // Distribute cards to all players
-    for (i <- 0 until totalPlayers) {
-      // Distribute other cards normally
-      for (j <- 0 until cardsPerPlayer) {
-        players(i).addCardToHand(totalCards(i * (cardsPerPlayer - 1) + j))
+    for (i <- 0 until deck.getCards().length by totalPlayers) {
+      for (j <- 0 until totalPlayers) {
+        players(j).addCardToHand(deck.getCards()(i + j))
       }
     }
   }
