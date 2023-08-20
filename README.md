@@ -9,6 +9,7 @@
 - [Features](#features)
 - [Installation](#installation)
 - [How to Play](#how-to-play)
+- [Video Links](#video-links)
 
 ## Introduction
 
@@ -39,4 +40,12 @@ Big Two is a shedding-type card game where the objective is to get rid of all yo
 3. Follow the rules of Big Two to play your cards.
 4. The player who gets rid of all their cards first wins the round.
 4. Submit a pull request detailing your changes.
+
+## Video Links
+Presentation Video:
+`https://youtu.be/eNxJDV72YkQ`
+
+Full Game Play Recording:
+`https://www.youtube.com/watch?v=d-v1SP657pI`
+
 
